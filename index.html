@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="react semi modal" />
+    <title>react-semi-modal</title>
+    <style>
+      html {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" style="height: 100vh; background: #eee;"></div>
+    <div id="portal-root"></div>
+    <script src="./index.tsx"></script>
+
+    <script>
+      document.body.addEventListener("scroll", event => event.preventDefault());
+    </script>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "react-semi-modal",
+  "version": "0.1.0",
+  "main": "index.js",
+  "author": "moriyuu",
+  "license": "MIT",
+  "scripts": {
+    "dev": "parcel index.html --open"
+  },
+  "dependencies": {
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1",
+    "styled-components": "^4.1.3"
+  },
+  "devDependencies": {
+    "@types/react": "^16.8.2",
+    "@types/react-dom": "^16.8.0",
+    "parcel-bundler": "^1.11.0",
+    "typescript": "^3.3.3"
+  }
+}
