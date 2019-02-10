@@ -5,7 +5,8 @@
   "author": "moriyuu",
   "license": "MIT",
   "scripts": {
-    "dev": "parcel index.html --open"
+    "dev": "parcel index.html --open",
+    "build": "parcel build index.html"
   },
   "dependencies": {
     "react": "^16.8.1",
