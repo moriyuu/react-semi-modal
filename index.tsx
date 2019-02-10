@@ -9,6 +9,11 @@ const App = () => {
   return (
     <div>
       <h1 style={{ margin: "0 0 0.5em 0" }}>SemiModal</h1>
+      {window.ontouchstart !== null && (
+        <strong>
+          Note: For Smartphones and Tablets Only (PC is Not Supported)
+        </strong>
+      )}
       <button onClick={() => setSemiModalOpen(open => !open)}>
         {semiModalOpen ? "close" : "open"}
       </button>
