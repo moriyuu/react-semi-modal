@@ -1,7 +1,6 @@
-import * as React from "react";
-import { useState } from "react";
-import * as ReactDOM from "react-dom";
-import SemiModal from "./SemiModal";
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
+import SemiModal from "..";
 
 const App = () => {
   const [semiModalOpen, setSemiModalOpen] = useState(false);
@@ -9,14 +8,17 @@ const App = () => {
   return (
     <div>
       <h1 style={{ margin: "0 0 0.5em 0" }}>SemiModal</h1>
+
       {window.ontouchstart !== null && (
         <strong>
           Note: For Smartphones and Tablets Only (PC is Not Supported)
         </strong>
       )}
+
       <button onClick={() => setSemiModalOpen(open => !open)}>
         {semiModalOpen ? "close" : "open"}
       </button>
+
       <SemiModal
         open={semiModalOpen}
         callbackOnClose={() => setSemiModalOpen(false)}

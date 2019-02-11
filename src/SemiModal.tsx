@@ -2,12 +2,10 @@ import * as React from "react";
 import {
   useState,
   useEffect,
-  useRef,
   useCallback,
   TouchEvent,
   MouseEvent
 } from "react";
-import * as ReactDOM from "react-dom";
 import styled from "styled-components";
 
 type SemiModalWrapperProps = {
@@ -29,7 +27,7 @@ const SemiModalWrapper = styled.div`
   visibility: ${(p: SemiModalWrapperProps) => (p.open ? "visible" : "hidden")};
   transition: background-color 0.1s ease-out, visibility 0.1s ease-out;
 
-  > #semimodal {
+  > #react-semi-modal {
     position: absolute;
     top: ${(p: SemiModalWrapperProps) => `calc(100vh - ${p.height}px)`};
     bottom: 0;
@@ -90,7 +88,6 @@ const SemiModal: React.FC<Props> = props => {
   }, []);
   const handleStart = useCallback((event: TouchEvent<HTMLElement>) => {
     event.persist();
-    console.log("handleStart");
 
     setState(_state => ({
       ..._state,
@@ -100,7 +97,6 @@ const SemiModal: React.FC<Props> = props => {
   const handleEnd = useCallback(
     (event: TouchEvent<HTMLElement>) => {
       event.persist();
-      console.log("handleEnd");
 
       const height =
         -1 * state.offset > state.defaultHeight / 2 ? 0 : state.defaultHeight;
@@ -118,7 +114,6 @@ const SemiModal: React.FC<Props> = props => {
   const handleMove = useCallback(
     (event: TouchEvent<HTMLElement>) => {
       event.persist();
-      console.log("handleMove");
 
       const offset = state.startPointY - event.changedTouches[0].clientY;
       const height =
@@ -135,8 +130,6 @@ const SemiModal: React.FC<Props> = props => {
     [state.startPointY, state.offset, state.defaultHeight]
   );
   const handleClick = useCallback((event: MouseEvent<HTMLElement>) => {
-    console.log("handleClick");
-
     setState(_state => ({
       ..._state,
       height: 0
@@ -145,7 +138,7 @@ const SemiModal: React.FC<Props> = props => {
     onClose();
   }, []);
 
-  return ReactDOM.createPortal(
+  return (
     <SemiModalWrapper
       open={props.open}
       defaultHeight={props.open ? state.defaultHeight : 0}
@@ -156,13 +149,12 @@ const SemiModal: React.FC<Props> = props => {
       onClick={handleClick}
     >
       <div
-        id="semimodal"
+        id="react-semi-modal"
         onClick={(event: MouseEvent<HTMLElement>) => event.stopPropagation()}
       >
         {props.children}
       </div>
-    </SemiModalWrapper>,
-    document.querySelector("#portal-root")
+    </SemiModalWrapper>
   );
 };
 

@@ -1,22 +1,36 @@
 {
   "name": "react-semi-modal",
-  "version": "0.1.0",
-  "main": "index.js",
+  "version": "0.1.1",
   "author": "moriyuu",
-  "license": "MIT",
-  "scripts": {
-    "dev": "parcel index.html --open",
-    "build": "parcel build index.html"
-  },
   "dependencies": {
-    "react": "^16.8.1",
-    "react-dom": "^16.8.1",
     "styled-components": "^4.1.3"
   },
   "devDependencies": {
     "@types/react": "^16.8.2",
     "@types/react-dom": "^16.8.0",
+    "@types/styled-components": "^4.1.8",
+    "netlify-cli": "^2.7.0",
     "parcel-bundler": "^1.11.0",
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1",
+    "rimraf": "^2.6.3",
+    "rollup": "^1.1.2",
+    "rollup-plugin-typescript2": "^0.19.2",
     "typescript": "^3.3.3"
+  },
+  "files": [
+    "dist"
+  ],
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "peerDependencies": {
+    "react": ">= 16.8.0",
+    "react-dom": ">= 16.8.0"
+  },
+  "scripts": {
+    "build": "rimraf dist & rollup -c",
+    "dev": "parcel example/index.html --open --out-dir example-dist",
+    "deploy:demo": "netlify deploy --dir=example-dist --prod"
   }
 }
