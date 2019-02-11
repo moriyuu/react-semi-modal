@@ -10,7 +10,7 @@
 yarn add react-semi-modal
 ```
 
-See (example/index.js)[https://github.com/moriyuu/react-semi-modal/blob/master/example/index.js].
+See [example/index.js](https://github.com/moriyuu/react-semi-modal/blob/master/example/index.js).
 
 ## Development
 
