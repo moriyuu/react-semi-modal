@@ -1,7 +1,8 @@
 {
   "name": "react-semi-modal",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "moriyuu",
+  "bugs": "https://github.com/moriyuu/react-semi-modal/issues",
   "dependencies": {
     "styled-components": "^4.1.3"
   },
@@ -28,9 +29,13 @@
     "react": ">= 16.8.0",
     "react-dom": ">= 16.8.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/moriyuu/react-semi-modal.git"
+  },
   "scripts": {
     "build": "rimraf dist & rollup -c",
-    "dev": "parcel example/index.html --open --out-dir example-dist",
-    "deploy:demo": "netlify deploy --dir=example-dist --prod"
+    "deploy:demo": "netlify deploy --dir=example-dist --prod",
+    "dev": "parcel example/index.html --open --out-dir example-dist"
   }
 }
