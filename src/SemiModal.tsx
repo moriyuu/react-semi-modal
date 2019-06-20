@@ -7,50 +7,62 @@ import {
   MouseEvent
 } from "react";
 import styled from "styled-components";
+import * as iNoBounce from "inobounce";
 
 type SemiModalWrapperProps = {
   open: boolean;
   defaultHeight: number;
   height: number;
 };
-const SemiModalWrapper = styled.div`
+const SemiModalWrapper = styled.div.attrs({
+  style: p => ({
+    backgroundColor: `rgba(0, 0, 0, ${
+      p.height > p.defaultHeight ? 0.5 : 0.5 * (p.height / p.defaultHeight)
+    })`
+  })
+})`
   position: fixed;
   top: 0;
   left: 0;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  background-color: ${(p: SemiModalWrapperProps) =>
+  /* background-color: ${(p: SemiModalWrapperProps) =>
     `rgba(0, 0, 0, ${
       p.height > p.defaultHeight ? 0.5 : 0.5 * (p.height / p.defaultHeight)
-    })`};
+    })`}; */
   visibility: ${(p: SemiModalWrapperProps) => (p.open ? "visible" : "hidden")};
   transition: background-color 0.1s ease-out, visibility 0.1s ease-out;
+`;
 
-  > #react-semi-modal {
+type SemiModalContentProps = {
+  height: number;
+};
+const SemiModalContent = styled.div.attrs((p: SemiModalContentProps) => ({
+  style: { top: `calc(100vh - ${p.height}px)` }
+}))`
+  position: absolute;
+  /* top: ${(p: SemiModalWrapperProps) => `calc(100vh - ${p.height}px)`}; */
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: #151f2b;
+  border-radius: 20px 20px 0 0;
+  padding: 24px 12px 0;
+  color: #fff;
+  transition: top 0.1s ease-out;
+
+  &:before {
+    content: "";
     position: absolute;
-    top: ${(p: SemiModalWrapperProps) => `calc(100vh - ${p.height}px)`};
-    bottom: 0;
+    top: 10px;
     right: 0;
     left: 0;
-    background-color: #151f2b;
-    border-radius: 20px 20px 0 0;
-    padding: 24px 12px 0;
-    color: #fff;
-    transition: top 0.1s ease-out;
-
-    &:before {
-      content: "";
-      position: absolute;
-      top: 10px;
-      right: 0;
-      left: 0;
-      margin: auto;
-      background-color: #243346;
-      height: 6px;
-      width: 56px;
-      border-radius: 999px;
-    }
+    margin: auto;
+    background-color: #243346;
+    height: 6px;
+    width: 56px;
+    border-radius: 999px;
   }
 `;
 
@@ -76,10 +88,13 @@ const SemiModal: React.FC<Props> = props => {
 
   useEffect(() => {
     if (props.open) {
+      // iNoBounce.enable();
       setState(_state => ({
         ..._state,
         height: _state.defaultHeight
       }));
+    } else {
+      // iNoBounce.disable();
     }
   }, [props.open]);
 
@@ -148,12 +163,13 @@ const SemiModal: React.FC<Props> = props => {
       onTouchMove={handleMove}
       onClick={handleClick}
     >
-      <div
+      <SemiModalContent
+        height={state.height}
         id="react-semi-modal"
         onClick={(event: MouseEvent<HTMLElement>) => event.stopPropagation()}
       >
         {props.children}
-      </div>
+      </SemiModalContent>
     </SemiModalWrapper>
   );
 };

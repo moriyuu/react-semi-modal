@@ -13,6 +13,7 @@ export default {
       format: "es"
     }
   ],
+  context: "window",
   plugins: [
     typescript({
       tsconfigOverride: {

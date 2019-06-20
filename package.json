@@ -4,6 +4,7 @@
   "author": "moriyuu",
   "bugs": "https://github.com/moriyuu/react-semi-modal/issues",
   "dependencies": {
+    "inobounce": "^0.1.6",
     "styled-components": "^4.1.3"
   },
   "devDependencies": {
@@ -36,6 +37,6 @@
   "scripts": {
     "build": "rimraf dist & rollup -c",
     "deploy:demo": "netlify deploy --dir=example-dist --prod",
-    "dev": "parcel example/index.html --open --out-dir example-dist"
+    "dev": "parcel example/index.html --out-dir example-dist"
   }
 }
