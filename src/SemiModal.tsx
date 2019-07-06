@@ -6,53 +6,8 @@ import {
   TouchEvent,
   MouseEvent
 } from "react";
-import styled from "styled-components";
-
-type SemiModalWrapperProps = {
-  open: boolean;
-  defaultHeight: number;
-  height: number;
-};
-const SemiModalWrapper = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
-  background-color: ${(p: SemiModalWrapperProps) =>
-    `rgba(0, 0, 0, ${
-      p.height > p.defaultHeight ? 0.5 : 0.5 * (p.height / p.defaultHeight)
-    })`};
-  visibility: ${(p: SemiModalWrapperProps) => (p.open ? "visible" : "hidden")};
-  transition: background-color 0.1s ease-out, visibility 0.1s ease-out;
-
-  > #react-semi-modal {
-    position: absolute;
-    top: ${(p: SemiModalWrapperProps) => `calc(100vh - ${p.height}px)`};
-    bottom: 0;
-    right: 0;
-    left: 0;
-    background-color: #151f2b;
-    border-radius: 20px 20px 0 0;
-    padding: 24px 12px 0;
-    color: #fff;
-    transition: top 0.1s ease-out;
-
-    &:before {
-      content: "";
-      position: absolute;
-      top: 10px;
-      right: 0;
-      left: 0;
-      margin: auto;
-      background-color: #243346;
-      height: 6px;
-      width: 56px;
-      border-radius: 999px;
-    }
-  }
-`;
+import * as iNoBounce from "inobounce";
+import "./style.scss";
 
 type Props = {
   open: boolean;
@@ -76,10 +31,13 @@ const SemiModal: React.FC<Props> = props => {
 
   useEffect(() => {
     if (props.open) {
+      iNoBounce.enable();
       setState(_state => ({
         ..._state,
         height: _state.defaultHeight
       }));
+    } else {
+      iNoBounce.disable();
     }
   }, [props.open]);
 
@@ -138,23 +96,34 @@ const SemiModal: React.FC<Props> = props => {
     onClose();
   }, []);
 
+  const defaultHeight = props.open ? state.defaultHeight : 0;
   return (
-    <SemiModalWrapper
-      open={props.open}
-      defaultHeight={props.open ? state.defaultHeight : 0}
-      height={state.height}
+    <div
+      id="react-semi-modal-wrapper"
       onTouchStart={handleStart}
       onTouchEnd={handleEnd}
       onTouchMove={handleMove}
       onClick={handleClick}
+      style={{
+        backgroundColor: `rgba(0, 0, 0, ${
+          state.height > defaultHeight
+            ? 0.5
+            : 0.5 * (state.height / defaultHeight)
+        })`,
+        visibility: props.open ? "visible" : "hidden"
+      }}
     >
       <div
         id="react-semi-modal"
         onClick={(event: MouseEvent<HTMLElement>) => event.stopPropagation()}
+        style={{
+          top: `calc(100vh - ${state.height}px)`,
+          willChange: props.open ? "top" : "auto"
+        }}
       >
         {props.children}
       </div>
-    </SemiModalWrapper>
+    </div>
   );
 };
 

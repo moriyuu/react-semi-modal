@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import SemiModal from "..";
+import SemiModal from "../src/SemiModal";
 
 const App = () => {
   const [semiModalOpen, setSemiModalOpen] = useState(false);

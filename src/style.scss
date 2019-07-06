@@ -1,0 +1,34 @@
+#react-semi-modal-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  transition: background-color 0.1s ease-out, visibility 0.1s ease-out;
+}
+
+#react-semi-modal {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: #151f2b;
+  border-radius: 20px 20px 0 0;
+  padding: 24px 12px 0;
+  color: #fff;
+  transition: top 0.1s ease-out;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    right: 0;
+    left: 0;
+    margin: auto;
+    background-color: #243346;
+    height: 6px;
+    width: 56px;
+    border-radius: 999px;
+  }
+}
