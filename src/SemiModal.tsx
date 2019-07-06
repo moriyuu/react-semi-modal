@@ -41,7 +41,7 @@ const SemiModal: React.FC<Props> = props => {
     }
   }, [props.open]);
 
-  const handleStart = useCallback((event: TouchEvent<HTMLElement>) => {
+  const handleTouchStart = useCallback((event: TouchEvent<HTMLElement>) => {
     event.persist();
 
     setState(_state => ({
@@ -49,7 +49,8 @@ const SemiModal: React.FC<Props> = props => {
       startPointY: event.changedTouches[0].clientY
     }));
   }, []);
-  const handleEnd = useCallback(
+
+  const handleTouchEnd = useCallback(
     (event: TouchEvent<HTMLElement>) => {
       event.persist();
 
@@ -66,7 +67,8 @@ const SemiModal: React.FC<Props> = props => {
     },
     [state.offset, state.defaultHeight]
   );
-  const handleMove = useCallback(
+
+  const handleTouchMove = useCallback(
     (event: TouchEvent<HTMLElement>) => {
       event.persist();
 
@@ -84,6 +86,7 @@ const SemiModal: React.FC<Props> = props => {
     },
     [state.startPointY, state.offset, state.defaultHeight]
   );
+
   const handleClick = useCallback((event: MouseEvent<HTMLElement>) => {
     setState(_state => ({
       ..._state,
@@ -97,9 +100,9 @@ const SemiModal: React.FC<Props> = props => {
   return (
     <div
       id="react-semi-modal-wrapper"
-      onTouchStart={handleStart}
-      onTouchEnd={handleEnd}
-      onTouchMove={handleMove}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      onTouchMove={handleTouchMove}
       onClick={handleClick}
       style={{
         backgroundColor: `rgba(0, 0, 0, ${
