@@ -11,7 +11,7 @@ import "./style.scss";
 
 type Props = {
   open: boolean;
-  callbackOnClose(): void;
+  onClose(): void;
 };
 type State = {
   startPointY: number;
@@ -41,9 +41,6 @@ const SemiModal: React.FC<Props> = props => {
     }
   }, [props.open]);
 
-  const onClose = useCallback(() => {
-    props.callbackOnClose();
-  }, []);
   const handleStart = useCallback((event: TouchEvent<HTMLElement>) => {
     event.persist();
 
@@ -58,7 +55,7 @@ const SemiModal: React.FC<Props> = props => {
 
       const height =
         -1 * state.offset > state.defaultHeight / 2 ? 0 : state.defaultHeight;
-      if (height === 0) onClose();
+      if (height === 0) props.onClose();
 
       setState(_state => ({
         ..._state,
@@ -93,7 +90,7 @@ const SemiModal: React.FC<Props> = props => {
       height: 0
     }));
 
-    onClose();
+    props.onClose();
   }, []);
 
   const defaultHeight = props.open ? state.defaultHeight : 0;

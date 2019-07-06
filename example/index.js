@@ -19,10 +19,7 @@ const App = () => {
         {semiModalOpen ? "close" : "open"}
       </button>
 
-      <SemiModal
-        open={semiModalOpen}
-        callbackOnClose={() => setSemiModalOpen(false)}
-      >
+      <SemiModal open={semiModalOpen} onClose={() => setSemiModalOpen(false)}>
         <button
           style={{
             height: "40px",
