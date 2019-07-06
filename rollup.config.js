@@ -1,4 +1,5 @@
 import typescript from "rollup-plugin-typescript2";
+import scss from "rollup-plugin-scss";
 import pkg from "./package.json";
 
 export default {
@@ -22,7 +23,8 @@ export default {
           moduleResolution: "node"
         }
       }
-    })
+    }),
+    scss()
   ],
   external: [
     // ...Object.keys(pkg.dependencies || {}),
