@@ -17,13 +17,13 @@ type State = {
   startPointY: number;
   offset: number;
   defaultHeight: number;
-  height: number;
+  translateY: number;
 };
 const initialState: State = {
   startPointY: 0,
   offset: 0,
   defaultHeight: 200,
-  height: 0
+  translateY: 0
 };
 
 const SemiModal: React.FC<Props> = props => {
@@ -34,7 +34,7 @@ const SemiModal: React.FC<Props> = props => {
       iNoBounce.enable();
       setState(_state => ({
         ..._state,
-        height: _state.defaultHeight
+        translateY: -1 * _state.defaultHeight
       }));
     } else {
       iNoBounce.disable();
@@ -62,7 +62,7 @@ const SemiModal: React.FC<Props> = props => {
         ..._state,
         startPointY: 0,
         offset: 0,
-        height
+        translateY: -1 * height
       }));
     },
     [state.offset, state.defaultHeight]
@@ -81,7 +81,7 @@ const SemiModal: React.FC<Props> = props => {
       setState(_state => ({
         ..._state,
         offset,
-        height
+        translateY: -1 * height
       }));
     },
     [state.startPointY, state.offset, state.defaultHeight]
@@ -90,7 +90,7 @@ const SemiModal: React.FC<Props> = props => {
   const handleClick = useCallback((event: MouseEvent<HTMLElement>) => {
     setState(_state => ({
       ..._state,
-      height: 0
+      translateY: 0
     }));
 
     props.onClose();
@@ -106,9 +106,9 @@ const SemiModal: React.FC<Props> = props => {
       onClick={handleClick}
       style={{
         backgroundColor: `rgba(0, 0, 0, ${
-          state.height > defaultHeight
+          -1 * state.translateY > defaultHeight
             ? 0.5
-            : 0.5 * (state.height / defaultHeight)
+            : 0.5 * ((-1 * state.translateY) / defaultHeight)
         })`,
         visibility: props.open ? "visible" : "hidden"
       }}
@@ -117,8 +117,9 @@ const SemiModal: React.FC<Props> = props => {
         id="react-semi-modal"
         onClick={(event: MouseEvent<HTMLElement>) => event.stopPropagation()}
         style={{
-          top: `calc(100vh - ${state.height}px)`,
-          willChange: props.open ? "top" : "auto"
+          transform: `translateY(${state.translateY}px)`,
+          transitionDuration: props.open ? "0" : "0.1s",
+          willChange: props.open ? "transform" : "auto"
         }}
       >
         {props.children}

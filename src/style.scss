@@ -1,3 +1,8 @@
+#react-semi-modal-wrapper,
+#react-semi-modal {
+  box-sizing: border-box;
+}
+
 #react-semi-modal-wrapper {
   position: fixed;
   top: 0;
@@ -10,14 +15,16 @@
 
 #react-semi-modal {
   position: absolute;
-  bottom: 0;
+  top: 100%;
   right: 0;
   left: 0;
+  height: 100vh;
   background-color: #151f2b;
   border-radius: 20px 20px 0 0;
   padding: 24px 12px 0;
   color: #fff;
-  transition: top 0.1s ease-out;
+  transform: translateY(0px);
+  transition: transform 0.1s ease-out;
 
   &:before {
     content: "";
